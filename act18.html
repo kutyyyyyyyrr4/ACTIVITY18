@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Alumni+Sans+Inline+One:ital@0;1&family=Bungee&family=Itim&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lobster&family=Mochiy+Pop+One&family=Neucha&family=Pacifico&family=Rubik+Doodle+Shadow&family=Sixtyfour&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Alumni+Sans+Inline+One:ital@0;1&family=Angkor&family=Bungee&family=Itim&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lobster&family=Mochiy+Pop+One&family=Neucha&family=Pacifico&family=Rubik+Doodle+Shadow&family=Sixtyfour&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <title>Activity 18 Stop Watch</title>
+  <style>
+    body {
+  font-family: "Angkor", serif;
+  color: #a7889c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(178deg, #bd25a6, #d6b9cd, #732254, #a40371, #f607f2)
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 90px;
+    margin: auto;
+    color: #d19b9f;
+    text-shadow: 3px 7px #d82a93,
+               7px 10px #d196d5;
+    
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.stopwatch {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.buttons button {
+    background-color: #9f117e;
+    color: #d9bfcb;
+    padding: 15px 38px;
+  font-size: 20px;
+  margin-right: 30px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+    box-shadow: 0 0 5px #f8eeee,
+    0 0 25px #f8eeee, 0 0 50px #f8eeee,
+    0 0 100px #f8eeee, 0 0 200px #f8eeee;
+    
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Stop Watch</h1>
+    <div class="stopwatch">
+      <span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span>
+    </div>
+    <div class="buttons">
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+  <script>
+    var minutesElement = document.getElementById("minutes");
+var secondsElement = document.getElementById("seconds");
+var millisecondsElement = document.getElementById("milliseconds");
+var startButton = document.getElementById("start");
+var stopButton = document.getElementById("stop");
+var resetButton = document.getElementById("reset");
+
+var minutes = 0;
+var seconds = 0;
+var milliseconds = 0;
+var interval;
+
+function startTimer() {
+  interval = setInterval(function() {
+    milliseconds++;
+    if (milliseconds === 100) {
+      milliseconds = 0;
+      seconds++;
+      if (seconds === 60) {
+        seconds = 0;
+        minutes++;
+      }
+    }
+    updateTime();
+  }, 10);
+}
+
+function stopTimer() {
+  clearInterval(interval);
+}
+
+function resetTimer() {
+  clearInterval(interval);
+  minutes = 0;
+  seconds = 0;
+  milliseconds = 0;
+  updateTime();
+}
+
+function updateTime() {
+  minutesElement.textContent = padTime(minutes);
+  secondsElement.textContent = padTime(seconds);
+  millisecondsElement.textContent = padTime(milliseconds);
+}
+
+function padTime(time) {
+  return time.toString().padStart(2, "0");
+}
+
+startButton.addEventListener("click", startTimer);
+stopButton.addEventListener("click", stopTimer);
+resetButton.addEventListener("click", resetTimer);
+  </script>
+</body>
+</html>
